@@ -26,7 +26,7 @@ class MovieListTableViewController: UITableViewController {
                 print("Failed to fetch movie data:", err)
                 return
             }
-            print("there are \(movies?.count) movie objects fetched")
+            print("there are \(String(describing: movies?.count)) movie objects fetched")
             //we will transform the array of Movie objects to an array of MovieViewModel objects
             self.movieViewModels = movies?.map({return MovieViewModel(movie: $0)}) ?? []
             self.tableView.reloadData()
@@ -43,5 +43,10 @@ class MovieListTableViewController: UITableViewController {
         //In MVVM, the controller will only talks to MovieViewModel, it is not aware of the raw Movie class any more
         cell.movieViewModel = movieViewModel
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 500
     }
 }
