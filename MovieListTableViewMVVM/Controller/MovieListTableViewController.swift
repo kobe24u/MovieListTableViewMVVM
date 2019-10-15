@@ -16,19 +16,40 @@ class MovieListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMovieData()
+        customizeRefreshController()
+    }
+    
+    func customizeRefreshController(){
+        // Add Refresh Control to Table View, when the user pull and release it will refresh the tableview
+        if #available(iOS 10.0, *) {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action:  #selector(fetchMovieData), for: .valueChanged)
+            
+            // Green color
+            let greenColor = UIColor(red: 10/255, green: 190/255, blue: 50/255, alpha: 1.0)
+            var attributes = [NSAttributedString.Key: AnyObject]()
+            attributes[.foregroundColor] = greenColor
+            //we will show the user a prompt message, when he pulls and release, the table view will refresh itself
+            let attributedString = NSAttributedString(string: "Pull and release to refresh...", attributes: attributes)
+            refreshControl.tintColor = greenColor
+            refreshControl.attributedTitle = attributedString
+            self.refreshControl = refreshControl
+        }
     }
     
     //here we will do the API call to fetch the data using complition handler
     //we won't go further if the data fetch process has an error
-    fileprivate func fetchMovieData() {
+    @objc fileprivate func fetchMovieData() {
         FetchService.shared.fetchMovies { (movies, err) in
             if let err = err {
                 print("Failed to fetch movie data:", err)
                 return
             }
+            self.movieViewModels.removeAll()
             print("there are \(String(describing: movies?.count)) movie objects fetched")
             //we will transform the array of Movie objects to an array of MovieViewModel objects
             self.movieViewModels = movies?.map({return MovieViewModel(movie: $0)}) ?? []
+            self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
         }
     }
