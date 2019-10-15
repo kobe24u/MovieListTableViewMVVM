@@ -12,6 +12,9 @@
 		BF68F0CE2355C48100999C41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF68F0CC2355C48100999C41 /* Main.storyboard */; };
 		BF68F0D02355C48200999C41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF68F0CF2355C48200999C41 /* Assets.xcassets */; };
 		BF68F0D32355C48200999C41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF68F0D12355C48200999C41 /* LaunchScreen.storyboard */; };
+		BF68F0DE2355C6E400999C41 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F0DB2355C6E400999C41 /* Alamofire.framework */; };
+		BF68F0DF2355C6E400999C41 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F0DC2355C6E400999C41 /* SVProgressHUD.framework */; };
+		BF68F0E02355C6E400999C41 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF68F0DD2355C6E400999C41 /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		BF68F0CF2355C48200999C41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF68F0D22355C48200999C41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF68F0D42355C48200999C41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF68F0DB2355C6E400999C41 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		BF68F0DC2355C6E400999C41 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		BF68F0DD2355C6E400999C41 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF68F0DE2355C6E400999C41 /* Alamofire.framework in Frameworks */,
+				BF68F0DF2355C6E400999C41 /* SVProgressHUD.framework in Frameworks */,
+				BF68F0E02355C6E400999C41 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +49,7 @@
 			children = (
 				BF68F0C72355C48100999C41 /* MovieListTableViewMVVM */,
 				BF68F0C62355C48100999C41 /* Products */,
+				BF68F0DA2355C6E400999C41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +74,16 @@
 			path = MovieListTableViewMVVM;
 			sourceTree = "<group>";
 		};
+		BF68F0DA2355C6E400999C41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF68F0DB2355C6E400999C41 /* Alamofire.framework */,
+				BF68F0DC2355C6E400999C41 /* SVProgressHUD.framework */,
+				BF68F0DD2355C6E400999C41 /* SwiftyJSON.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +94,7 @@
 				BF68F0C12355C48100999C41 /* Sources */,
 				BF68F0C22355C48100999C41 /* Frameworks */,
 				BF68F0C32355C48100999C41 /* Resources */,
+				BF68F0E12355C6EC00999C41 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -129,6 +150,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BF68F0E12355C6EC00999C41 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BF68F0C12355C48100999C41 /* Sources */ = {
@@ -284,6 +328,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MovieListTableViewMVVM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,6 +350,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHS5CFX24Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MovieListTableViewMVVM/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
